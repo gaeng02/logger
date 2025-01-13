@@ -33,7 +33,11 @@ class LoggerConfig :
         
         with open(self.file, "w") as f :
             for key, value in config_args.items() :
-                f.write(f"{key:<15} :: {value}\n")     
+                f.write(f"{key:<15} :: {value}\n")
+                
+        f = open(self.filepath, "w")
+        f.close ()
+        
 
     def _print (self) :
         with open (self.file, "r") as f :
@@ -49,5 +53,7 @@ class Logger :
     def set (self, filepath = False, _format = False, level = False) :
         self.config._set(filepath, _format, level)
 
-    # def log (self) :
+    # def log (self, level = False) :
         
+
+    # def copy (self) : 
