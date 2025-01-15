@@ -54,6 +54,20 @@ class Logger :
         self.config._set(filepath, _format, level)
 
     # def log (self, level = False) :
-        
+                
 
-    # def copy (self) : 
+    def copy (self, copyfile) :
+
+        with open (self.file, "r") as f :
+            content = f.read()
+
+        with open (copyfile, "w") as f :
+            f.write(content)
+            
+
+    def print (self) :
+        
+        with open (self.file, "r") as f :
+            content = f.read()
+            print(content)
+        
