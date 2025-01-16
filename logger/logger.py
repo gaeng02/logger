@@ -43,15 +43,20 @@ class LoggerConfig :
         with open (self.file, "r") as f :
             content = f.read()
             print(content)
+
+    def _get_filepath (self) :
+        return self.filepath
         
             
 class Logger :
 
     def __init__ (self) :
         self.config = LoggerConfig()
+        self.file = self.config._get_filepath()
 
     def set (self, filepath = False, _format = False, level = False) :
         self.config._set(filepath, _format, level)
+        self.file = self.config._get_filepath()
 
     # def log (self, level = False) :
                 
