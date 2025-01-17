@@ -46,6 +46,12 @@ class LoggerConfig :
 
     def _get_filepath (self) :
         return self.filepath
+
+    def _get_format (self) :
+        return self._format
+
+    def _get_level (self) :
+        return self.level
         
             
 class Logger :
@@ -53,12 +59,22 @@ class Logger :
     def __init__ (self) :
         self.config = LoggerConfig()
         self.file = self.config._get_filepath()
+        self._format = self.config._get_format()
+        self.level = self.config._get_level()
 
     def set (self, filepath = False, _format = False, level = False) :
         self.config._set(filepath, _format, level)
         self.file = self.config._get_filepath()
+        self._format = self.config._get_format()
+        self.level = self.config._get_level()
 
-    # def log (self, level = False) :
+    def log (self, comment, level = False) :
+
+        if not level : level = self.level
+        sentence = time + level + comment + "\n"
+
+        with open (self.file, "w") as f :
+            f.write(sentence)
                 
 
     def copy (self, copyfile) :
