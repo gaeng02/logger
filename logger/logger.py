@@ -10,6 +10,7 @@ class LoggerConfig :
         f = open(self.file, "w")
         f.close ()
 
+        # error occured : if logger config file already existed?
         self.filepath = "../log"
         self._format = "[{time}] [{level}] {message}"
         self.level = "DEBUG"
@@ -69,23 +70,19 @@ class Logger :
         self.level = self.config._get_level()
 
     def log (self, comment, level = False) :
-
         if not level : level = self.level
         sentence = time + level + comment + "\n"
 
         with open (self.file, "w") as f :
             f.write(sentence)
                 
-
     def copy (self, copyfile) :
-
         with open (self.file, "r") as f :
             content = f.read()
 
         with open (copyfile, "w") as f :
             f.write(content)
             
-
     def print (self) :
         
         with open (self.file, "r") as f :
