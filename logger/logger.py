@@ -1,16 +1,20 @@
+import os
+
 class LoggerConfig :
 
     LEVELS = {"DEBUG" : 1, "INFO" : 2, "WARNING" : 3, "ERROR" : 4, "EMERGENCY" : 5}
 
     def __init__ (self) :
         self.file = "log"
-        self.__initialize()
+
+        if os.path.exists(self.file) :
+            self.__read_config()
+        else : self.__initialize()
 
     def __initialize (self) : 
         f = open(self.file, "w")
         f.close ()
 
-        # error occured : if logger config file already existed?
         self.filepath = "../log"
         self._format = "[{time}] [{level}] {message}"
         self.level = "DEBUG"
@@ -38,6 +42,10 @@ class LoggerConfig :
                 
         f = open(self.filepath, "w")
         f.close ()
+        
+
+    def __read_config (self) :
+        # parsing 
         
 
     def _print (self) :
