@@ -45,7 +45,14 @@ class LoggerConfig :
         
 
     def __read_config (self) :
-        # parsing 
+        # parsing
+        with open (self.file, "r") as f :
+            content = f.read()
+            
+        params = content.split("\n")
+        self.filepath = params[0][15:]
+        self._format = params[1][15:]
+        self.level = params[2][15:]
         
 
     def _print (self) :
