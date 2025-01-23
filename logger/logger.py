@@ -55,10 +55,24 @@ class LoggerConfig :
         self.level = params[2][15:]
         
 
-    def _print (self) :
+    def _print_config (self) :
         with open (self.file, "r") as f :
             content = f.read()
             print(content)
+
+    def _print_data (self) :
+        with open (self.file, "r") as f :
+            content = f.read()
+
+        params = content.split("\n")
+        self.filepath = params[0][15:]
+        self._format = params[1][15:]
+        self.level = params[2][15:]
+
+        print(self.filepath)
+        print(self._format)
+        print(self.level)
+        
 
     def _get_filepath (self) :
         return self.filepath
