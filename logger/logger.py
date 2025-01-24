@@ -2,8 +2,6 @@ import os
 
 class LoggerConfig :
 
-    LEVELS = {"DEBUG" : 1, "INFO" : 2, "WARNING" : 3, "ERROR" : 4, "EMERGENCY" : 5}
-
     def __init__ (self) :
         self.file = "log"
 
@@ -86,6 +84,8 @@ class LoggerConfig :
             
 class Logger :
 
+    LEVELS = {"DEBUG" : 1, "INFO" : 2, "WARNING" : 3, "ERROR" : 4, "EMERGENCY" : 5}
+    
     def __init__ (self) :
         self.config = LoggerConfig()
         self.file = self.config._get_filepath()
@@ -117,4 +117,9 @@ class Logger :
         with open (self.file, "r") as f :
             content = f.read()
             print(content)
+
+    def print_level (self) :
+        
+        for key, value in LEVELS :
+            print(key, value)
         
