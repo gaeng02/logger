@@ -3,11 +3,15 @@ import os
 class LoggerConfig :
 
     def __init__ (self) :
+        print("Testing :: LoggerConfig creation")
+        
         self.file = "log"
 
         if os.path.exists(self.file) :
             self.__read_config()
         else : self.__initialize()
+        
+        print("Completed :: LoggerConfig creation")
 
     def __initialize (self) : 
         f = open(self.file, "w")
@@ -87,10 +91,14 @@ class Logger :
     LEVELS = {"DEBUG" : 1, "INFO" : 2, "WARNING" : 3, "ERROR" : 4, "EMERGENCY" : 5}
     
     def __init__ (self) :
+        print("Testing :: Logger creation")
+        
         self.config = LoggerConfig()
         self.file = self.config._get_filepath()
         self._format = self.config._get_format()
         self.level = self.config._get_level()
+        
+        print("Completed :: Logger creation")
 
     def set (self, filepath = False, _format = False, level = False) :
         self.config._set(filepath, _format, level)
