@@ -1,4 +1,4 @@
-import logger
+import Logger
 
 logger.log("Hello World") # Default 
 
