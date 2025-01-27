@@ -1,4 +1,4 @@
-import Logger
+from Logger import logger
 
 logger.log("Hello World") # Default 
 
