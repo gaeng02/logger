@@ -108,7 +108,12 @@ class Logger :
 
     def log (self, comment, level = False) :
         if not level : level = self.level
-        sentence = time + level + comment + "\n"
+
+        time = time.time()
+
+        # issue : format has 2 meanings. 
+        # time format or logging format
+        sentence = self._format.format(time = time, level = level, message = comment) + "\n"
 
         with open (self.file, "w") as f :
             f.write(sentence)
