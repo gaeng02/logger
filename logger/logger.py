@@ -109,7 +109,8 @@ class Logger :
     def log (self, comment, level = False) :
         if not level : level = self.level
 
-        time = time.time()
+        time_format = '+%Y-%m-%d %H:%M:%S'
+        time = os.popen("date {time_format}").read().strip()
 
         # issue : format has 2 meanings. 
         # time format or logging format
