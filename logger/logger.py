@@ -18,15 +18,17 @@ class LoggerConfig :
         f.close ()
 
         self.filepath = "../log"
-        self._format = "[{time}] [{level}] {message}"
+        self.log_format = "[{time}] [{level}] {message}"
+        self.time_format = ""
         self.level = "DEBUG"
         self.__save()
         
 
-    def _set (self, filepath = False, _format = False, level = False) :
+    def _set (self, filepath = False, log_format = False, time_format = False, level = False) :
 
         if filepath : self.filepath = filepath
-        if _format : self._format = _format
+        if log_format : self.log_format = log_format
+        if time_format : self.time_format = time_format
         if level and (level in self.LEVELS) : self.level = level
 
         self.__save()
@@ -34,7 +36,8 @@ class LoggerConfig :
     def __save (self) :
         config_args = {
             "filepath" : self.filepath,
-            "format" : self._format,
+            "log_format" : self.log_format,
+            "time_format" : self.time_format,
             "level" : self.level
         }
         
@@ -68,22 +71,28 @@ class LoggerConfig :
 
         params = content.split("\n")
         self.filepath = params[0][15:]
-        self._format = params[1][15:]
-        self.level = params[2][15:]
+        self.log_format = params[1][15:]
+        self.time_format = params[2][15:]
+        self.level = params[3][15:]
 
         print(self.filepath)
-        print(self._format)
+        print(self.log_format)
+        print(self.time_format)
         print(self.level)
         
 
     def _get_filepath (self) :
         return self.filepath
 
-    def _get_format (self) :
-        return self._format
+    def _get_log_format (self) :
+        return self.log_format
+    
+    def _get_time_format (self) :
+        return self.time_format
 
     def _get_level (self) :
         return self.level
+
         
             
 class Logger :
@@ -95,26 +104,27 @@ class Logger :
         
         self.config = LoggerConfig()
         self.file = self.config._get_filepath()
-        self._format = self.config._get_format()
+        self.log_format = self.config._get_log_format()
+        self.time_format = self.config._get_time_format()
         self.level = self.config._get_level()
         
         print("Completed :: Logger creation")
 
-    def set (self, filepath = False, _format = False, level = False) :
+    def set (self, filepath = False, log_format = False, time_format = False, level = False) :
         self.config._set(filepath, _format, level)
         self.file = self.config._get_filepath()
-        self._format = self.config._get_format()
+        self.log_format = self.config._get_log_format()
+        self.time_format = self.config._get_time_format()
         self.level = self.config._get_level()
 
     def log (self, comment, level = False) :
         if not level : level = self.level
 
-        time_format = '+%Y-%m-%d %H:%M:%S'
         time = os.popen("date {time_format}").read().strip()
 
         # issue : format has 2 meanings. 
         # time format or logging format
-        sentence = self._format.format(time = time, level = level, message = comment) + "\n"
+        sentence = self.log_format.format(time = time, level = level, message = comment) + "\n"
 
         with open (self.file, "w") as f :
             f.write(sentence)
