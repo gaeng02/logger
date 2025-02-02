@@ -5,7 +5,7 @@ class LoggerConfig :
     def __init__ (self) :
         print("Testing :: LoggerConfig creation")
         
-        self.file = "log"
+        self.file = "config"
 
         if os.path.exists(self.file) :
             self.__read_config()
@@ -17,7 +17,7 @@ class LoggerConfig :
         f = open(self.file, "w")
         f.close ()
 
-        self.filepath = "../log"
+        self.filepath = "./data/log"
         self.log_format = "[{time}] [{level}] {message}"
         self.time_format = ""
         self.level = "DEBUG"
@@ -56,8 +56,9 @@ class LoggerConfig :
             
         params = content.split("\n")
         self.filepath = params[0][15:]
-        self._format = params[1][15:]
-        self.level = params[2][15:]
+        self.log_format = params[1][15:]
+        self.time_format = params[2][15:]
+        self.level = params[3][15:]
         
 
     def _print_config (self) :
@@ -145,5 +146,5 @@ class Logger :
     def print_level (self) :
         
         for key, value in LEVELS :
-            print(key, value)
+            print(key, value)    
         
