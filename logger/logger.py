@@ -145,6 +145,9 @@ class Logger :
 
     def print_level (self) :
         
-        for key, value in LEVELS :
-            print(key, value)    
+        for key, value in self.LEVELS :
+            print(key, value)
+
+    def _print_path (self) :
+        print(os.getcwd())
         
