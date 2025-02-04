@@ -55,10 +55,10 @@ class LoggerConfig :
             content = f.read()
             
         params = content.split("\n")
-        self.filepath = params[0][15:]
-        self.log_format = params[1][15:]
-        self.time_format = params[2][15:]
-        self.level = params[3][15:]
+        self.filepath = params[0][19:]
+        self.log_format = params[1][19:]
+        self.time_format = params[2][19:]
+        self.level = params[3][19:]
         
 
     def _print_config (self) :
@@ -71,10 +71,10 @@ class LoggerConfig :
             content = f.read()
 
         params = content.split("\n")
-        self.filepath = params[0][15:]
-        self.log_format = params[1][15:]
-        self.time_format = params[2][15:]
-        self.level = params[3][15:]
+        self.filepath = params[0][19:]
+        self.log_format = params[1][19:]
+        self.time_format = params[2][19:]
+        self.level = params[3][19:]
 
         print(self.filepath)
         print(self.log_format)
