@@ -2,6 +2,8 @@ import os
 
 class LoggerConfig :
 
+    LEVELS = {"DEBUG" : 1, "INFO" : 2, "WARNING" : 3, "ERROR" : 4, "EMERGENCY" : 5}
+
     def __init__ (self) :
         print("Testing :: LoggerConfig creation")
         
@@ -112,7 +114,7 @@ class Logger :
         print("Completed :: Logger creation")
 
     def set (self, filepath = False, log_format = False, time_format = False, level = False) :
-        self.config._set(filepath, _format, level)
+        self.config._set(filepath, log_format, time_format, level)
         self.file = self.config._get_filepath()
         self.log_format = self.config._get_log_format()
         self.time_format = self.config._get_time_format()
@@ -145,8 +147,8 @@ class Logger :
 
     def print_level (self) :
         
-        for key, value in self.LEVELS :
-            print(key, value)
+        for items in self.LEVELS :
+            print(items)
 
     def _print_path (self) :
         print(os.getcwd())
