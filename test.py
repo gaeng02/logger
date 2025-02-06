@@ -14,4 +14,4 @@ print("Test :: move file")
 logger.set(filepath = "./data/test_log")
 
 print("Test :: copy")
-logger.copy("../copy_log")
+logger.copy("./data/copy_log")

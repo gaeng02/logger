@@ -55,12 +55,26 @@ class LoggerConfig :
         # parsing
         with open (self.file, "r") as f :
             content = f.read()
-            
+
+        '''
         params = content.split("\n")
         self.filepath = params[0][19:]
         self.log_format = params[1][19:]
         self.time_format = params[2][19:]
         self.level = params[3][19:]
+        '''
+
+        config_args = {}
+        for line in content :
+            parts = line.split("::")
+            if len(parts) == 2 :
+                key, value = parts[0].strip(), parts[1].strip()
+            config_args[key] = value
+
+        self.filepath = config_args.get("filepath", "./data/log")
+        self.log_format = config_args.get("log_format", "[{time}] [{level}] {message}")
+        self.time_format = config_args.get("time_format", "%Y-%m-%d %H:%M:%S")
+        self.level = config_args.get("level", "DEBUG")
         
 
     def _print_config (self) :
@@ -129,7 +143,7 @@ class Logger :
         # time format or logging format
         sentence = self.log_format.format(time = time, level = level, message = comment) + "\n"
 
-        with open (self.file, "w") as f :
+        with open (self.file, "a") as f :
             f.write(sentence)
                 
     def copy (self, copyfile) :
