@@ -65,11 +65,13 @@ class LoggerConfig :
         '''
 
         config_args = {}
-        for line in content :
+        
+        for line in content.splitlines() :
             parts = line.split("::")
+            
             if len(parts) == 2 :
                 key, value = parts[0].strip(), parts[1].strip()
-            config_args[key] = value
+                config_args[key] = value
 
         self.filepath = config_args.get("filepath", "./data/log")
         self.log_format = config_args.get("log_format", "[{time}] [{level}] {message}")
