@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 class LoggerConfig :
 
@@ -21,7 +22,7 @@ class LoggerConfig :
 
         self.filepath = "./data/log"
         self.log_format = "[{time}] [{level}] {message}"
-        self.time_format = ""
+        self.time_format = "%Y-%m-%d %H:%M:%S"
         self.level = "DEBUG"
         self.__save()
         
@@ -98,18 +99,22 @@ class LoggerConfig :
         print(self.log_format)
         print(self.time_format)
         print(self.level)
-        
 
-    def _get_filepath (self) :
+        
+    @property
+    def filepath (self) :
         return self.filepath
 
-    def _get_log_format (self) :
+    @property
+    def log_format (self) :
         return self.log_format
-    
-    def _get_time_format (self) :
+
+    @property
+    def time_format (self) :
         return self.time_format
 
-    def _get_level (self) :
+    @property
+    def level (self) :
         return self.level
 
         
@@ -139,7 +144,7 @@ class Logger :
     def log (self, comment, level = False) :
         if not level : level = self.level
 
-        time = os.popen("date {time_format}").read().strip()
+        time = datetime.now().strftime(time_format)
 
         # issue : format has 2 meanings. 
         # time format or logging format
