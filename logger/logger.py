@@ -1,137 +1,105 @@
 import os
 from datetime import datetime
 
-class LoggerConfig :
+class LoggerConfig:
+    LEVELS = {"DEBUG": 1, "INFO": 2, "WARNING": 3, "ERROR": 4, "EMERGENCY": 5}
 
-    LEVELS = {"DEBUG" : 1, "INFO" : 2, "WARNING" : 3, "ERROR" : 4, "EMERGENCY" : 5}
-
-    def __init__ (self) :
+    def __init__(self):
         print("Testing :: LoggerConfig creation")
-        
+
         self.file = "config"
 
-        if os.path.exists(self.file) :
+        if os.path.exists(self.file):
             self.__read_config()
-        else : self.__initialize()
-        
+        else:
+            self.__initialize()
+
         print("Completed :: LoggerConfig creation")
 
-    def __initialize (self) : 
+    def __initialize(self):
         f = open(self.file, "w")
-        f.close ()
+        f.close()
 
-        self.filepath = "./data/log"
-        self.log_format = "[{time}] [{level}] {message}"
-        self.time_format = "%Y-%m-%d %H:%M:%S"
-        self.level = "DEBUG"
-        self.__save()
-        
-
-    def _set (self, filepath = False, log_format = False, time_format = False, level = False) :
-
-        if filepath : self.filepath = filepath
-        if log_format : self.log_format = log_format
-        if time_format : self.time_format = time_format
-        if level and (level in self.LEVELS) : self.level = level
-
+        self._filepath = "./data/log"
+        self._log_format = "[{time}] [{level}] {message}"
+        self._time_format = "%Y-%m-%d %H:%M:%S"
+        self._level = "DEBUG"
         self.__save()
 
-    def __save (self) :
-        config_args = {
-            "filepath" : self.filepath,
-            "log_format" : self.log_format,
-            "time_format" : self.time_format,
-            "level" : self.level
-        }
-        
-        with open(self.file, "w") as f :
-            for key, value in config_args.items() :
-                f.write(f"{key:<15} :: {value}\n")
-                
-        f = open(self.filepath, "w")
-        f.close ()
-        
+    def _set(self, filepath=False, log_format=False, time_format=False, level=False):
+        if filepath:
+            self._filepath = filepath
+        if log_format:
+            self._log_format = log_format
+        if time_format:
+            self._time_format = time_format
+        if level and (level in self.LEVELS):
+            self._level = level
 
-    def __read_config (self) :
-        # parsing
-        with open (self.file, "r") as f :
-            content = f.read()
+        self.__save()
 
-        '''
-        params = content.split("\n")
-        self.filepath = params[0][19:]
-        self.log_format = params[1][19:]
-        self.time_format = params[2][19:]
-        self.level = params[3][19:]
-        '''
-
+    def __read_config(self):
         config_args = {}
-        
-        for line in content.splitlines() :
-            parts = line.split("::")
-            
-            if len(parts) == 2 :
-                key, value = parts[0].strip(), parts[1].strip()
-                config_args[key] = value
 
-        self.filepath = config_args.get("filepath", "./data/log")
-        self.log_format = config_args.get("log_format", "[{time}] [{level}] {message}")
-        self.time_format = config_args.get("time_format", "%Y-%m-%d %H:%M:%S")
-        self.level = config_args.get("level", "DEBUG")
-        
+        with open(self.file, "r") as f:
+            for line in f:
+                parts = line.split("::")
+                if len(parts) == 2:
+                    key, value = parts[0].strip(), parts[1].strip()
+                    config_args[key] = value
 
-    def _print_config (self) :
-        with open (self.file, "r") as f :
-            content = f.read()
-            print(content)
+        self._filepath = config_args.get("filepath", "./data/log")
+        self._log_format = config_args.get("log_format", "[{time}] [{level}] {message}")
+        self._time_format = config_args.get("time_format", "%Y-%m-%d %H:%M:%S")
+        self._level = config_args.get("level", "DEBUG")
 
-    def _print_data (self) :
-        with open (self.file, "r") as f :
-            content = f.read()
+    def __save(self):
+        config_args = {
+            "filepath": self._filepath,
+            "log_format": self._log_format,
+            "time_format": self._time_format,
+            "level": self._level,
+        }
 
-        params = content.split("\n")
-        self.filepath = params[0][19:]
-        self.log_format = params[1][19:]
-        self.time_format = params[2][19:]
-        self.level = params[3][19:]
+        with open(self.file, "w") as f:
+            for key, value in config_args.items():
+                f.write(f"{key:<15} :: {value}\n")
 
-        print(self.filepath)
-        print(self.log_format)
-        print(self.time_format)
-        print(self.level)
+        with open(self._filepath, "w") as f:
+            f.close()
 
-        
+    # ✅ Getter & Setter 수정
     @property
-    def filepath (self) :
-        return self.filepath
-
-    @property
-    def log_format (self) :
-        return self.log_format
-
-    @property
-    def time_format (self) :
-        return self.time_format
-
-    @property
-    def level (self) :
-        return self.level
+    def filepath(self):
+        return self._filepath
 
     @filepath.setter
     def filepath(self, value):
-        self.filepath = value  
+        self._filepath = value  # ✅ 직접 호출을 막고 내부 변수(_filepath) 조작
+
+    @property
+    def log_format(self):
+        return self._log_format
 
     @log_format.setter
     def log_format(self, value):
-        self.log_format = value
+        self._log_format = value
+
+    @property
+    def time_format(self):
+        return self._time_format
 
     @time_format.setter
     def time_format(self, value):
-        self.time_format = value
+        self._time_format = value
+
+    @property
+    def level(self):
+        return self._level
 
     @level.setter
     def level(self, value):
-        self.level = value
+        self._level = value
         
             
 class Logger :
