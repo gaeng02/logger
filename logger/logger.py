@@ -110,24 +110,24 @@ class Logger :
         print("Testing :: Logger creation")
         
         self.config = LoggerConfig()
-        self.file = self.config.filepath()
-        self.log_format = self.config._get_log_format()
-        self.time_format = self.config._get_time_format()
-        self.level = self.config._get_level()
+        self.file = self.config.filepath
+        self.log_format = self.config.log_format
+        self.time_format = self.config.time_format
+        self.level = self.config.level
         
         print("Completed :: Logger creation")
 
     def set (self, filepath = False, log_format = False, time_format = False, level = False) :
         self.config._set(filepath, log_format, time_format, level)
-        self.file = self.config._get_filepath()
-        self.log_format = self.config._get_log_format()
-        self.time_format = self.config._get_time_format()
-        self.level = self.config._get_level()
+        self.file = self.config.filepath
+        self.log_format = self.config.log_format
+        self.time_format = self.config.time_format
+        self.level = self.config.level
 
     def log (self, comment, level = False) :
         if not level : level = self.level
 
-        time = datetime.now().strftime(time_format)
+        time = datetime.now().strftime(self.time_format)
 
         # issue : format has 2 meanings. 
         # time format or logging format
