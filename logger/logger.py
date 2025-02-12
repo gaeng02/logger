@@ -68,14 +68,13 @@ class LoggerConfig:
         with open(self._filepath, "w") as f:
             f.close()
 
-    # ✅ Getter & Setter 수정
     @property
     def filepath(self):
         return self._filepath
 
     @filepath.setter
     def filepath(self, value):
-        self._filepath = value  # ✅ 직접 호출을 막고 내부 변수(_filepath) 조작
+        self._filepath = value 
 
     @property
     def log_format(self):
@@ -129,10 +128,8 @@ class Logger :
 
         time = datetime.now().strftime(self.time_format)
 
-        # issue : format has 2 meanings. 
-        # time format or logging format
         sentence = self.log_format.format(time = time, level = level, message = comment) + "\n"
-
+        print(sentence)
         with open (self.file, "a") as f :
             f.write(sentence)
                 
