@@ -124,12 +124,20 @@ class Logger :
         self.level = self.config.level
 
     def log (self, comment, level = False) :
+
+        print(self.file)
+        
+        if not os.path.exists(os.path.dirname(self.file)) :
+            print("ERROR : file doesn't exists")
+            return ;
+        
         if not level : level = self.level
 
         time = datetime.now().strftime(self.time_format)
 
         sentence = self.log_format.format(time = time, level = level, message = comment) + "\n"
         print(sentence)
+        
         with open (self.file, "a") as f :
             f.write(sentence)
                 

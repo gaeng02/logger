@@ -5,7 +5,7 @@ logger.log("Hello World") # Default
 
 print("Test :: level print")
 logger.print_level() 
-logger.log("INFO", "Hello World")
+logger.log("Hello World", "ERROR")
 
 print("Test :: level set")
 logger.set(level = "WARNING")
