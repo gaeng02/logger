@@ -26,7 +26,7 @@ class LoggerConfig:
         self._level = "DEBUG"
         self.__save()
 
-    def _set(self, filepath=False, log_format=False, time_format=False, level=False):
+    def _set(self, filepath = False, log_format = False, time_format=False, level=False):
         if filepath:
             self._filepath = filepath
         if log_format:
@@ -53,7 +53,7 @@ class LoggerConfig:
         self._time_format = config_args.get("time_format", "%Y-%m-%d %H:%M:%S")
         self._level = config_args.get("level", "DEBUG")
 
-    def __save(self):
+    def __save(self) :
         config_args = {
             "filepath": self._filepath,
             "log_format": self._log_format,
@@ -65,39 +65,39 @@ class LoggerConfig:
             for key, value in config_args.items():
                 f.write(f"{key:<15} :: {value}\n")
 
-        with open(self._filepath, "w") as f:
+        with open(self._filepath, "a") as f :
             f.close()
 
     @property
-    def filepath(self):
+    def filepath(self) :
         return self._filepath
 
     @filepath.setter
-    def filepath(self, value):
+    def filepath(self, value) :
         self._filepath = value 
 
     @property
-    def log_format(self):
+    def log_format(self) :
         return self._log_format
 
     @log_format.setter
-    def log_format(self, value):
+    def log_format(self, value) :
         self._log_format = value
 
     @property
-    def time_format(self):
+    def time_format(self) :
         return self._time_format
 
     @time_format.setter
-    def time_format(self, value):
+    def time_format(self, value) :
         self._time_format = value
 
     @property
-    def level(self):
+    def level(self) :
         return self._level
 
     @level.setter
-    def level(self, value):
+    def level(self, value) : 
         self._level = value
         
             
@@ -125,8 +125,6 @@ class Logger :
 
     def log (self, comment, level = False) :
 
-        print(self.file)
-        
         if not os.path.exists(os.path.dirname(self.file)) :
             print("ERROR : file doesn't exists")
             return ;
@@ -137,15 +135,21 @@ class Logger :
 
         sentence = self.log_format.format(time = time, level = level, message = comment) + "\n"
         print(sentence)
+
+        print("log file test")
+
+        if not os.path.exists(self.file) : print("Not exist")
+        else : print("Exist")
         
         with open (self.file, "a") as f :
+            f.write("test log function")
             f.write(sentence)
                 
     def copy (self, copyfile) :
         with open (self.file, "r") as f :
             content = f.read()
 
-        with open (copyfile, "w") as f :
+        with open (copyfile, "a") as f :
             f.write(content)
             
     def print (self) :
