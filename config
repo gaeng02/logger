@@ -1,4 +1,4 @@
-filepath        :: ./data/test_log
+filepath        :: ./data/log
 log_format      :: [{time}] [{level}] {message}
 time_format     :: %Y-%m-%d %H:%M:%S
-level           :: WARNING
+level           :: DEBUG

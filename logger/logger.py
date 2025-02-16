@@ -4,19 +4,18 @@ from datetime import datetime
 class LoggerConfig:
     LEVELS = {"DEBUG": 1, "INFO": 2, "WARNING": 3, "ERROR": 4, "EMERGENCY": 5}
 
-    def __init__(self):
+    def __init__(self) :
         print("Testing :: LoggerConfig creation")
 
         self.file = "config"
 
-        if os.path.exists(self.file):
-            self.__read_config()
-        else:
-            self.__initialize()
+        if os.path.exists(self.file) : self.__read_config()
+        else : self.__initialize()
 
         print("Completed :: LoggerConfig creation")
 
-    def __initialize(self):
+    def __initialize(self) :
+        
         f = open(self.file, "w")
         f.close()
 
@@ -26,14 +25,14 @@ class LoggerConfig:
         self._level = "DEBUG"
         self.__save()
 
-    def _set(self, filepath = False, log_format = False, time_format=False, level=False):
-        if filepath:
+    def _set(self, filepath = False, log_format = False, time_format = False, level = False) :
+        if filepath :
             self._filepath = filepath
-        if log_format:
+        if log_format :
             self._log_format = log_format
-        if time_format:
+        if time_format :
             self._time_format = time_format
-        if level and (level in self.LEVELS):
+        if level and (level in self.LEVELS) :
             self._level = level
 
         self.__save()
@@ -42,7 +41,7 @@ class LoggerConfig:
         config_args = {}
 
         with open(self.file, "r") as f:
-            for line in f:
+            for line in f :
                 parts = line.split("::")
                 if len(parts) == 2:
                     key, value = parts[0].strip(), parts[1].strip()
@@ -117,6 +116,7 @@ class Logger :
         print("Completed :: Logger creation")
 
     def set (self, filepath = False, log_format = False, time_format = False, level = False) :
+
         self.config._set(filepath, log_format, time_format, level)
         self.file = self.config.filepath
         self.log_format = self.config.log_format

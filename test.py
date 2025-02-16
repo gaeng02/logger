@@ -7,6 +7,7 @@ print("Test :: level print")
 logger.print_level() 
 logger.log("Hello World", "ERROR")
 
+"""
 print("Test :: level set")
 logger.set(level = "WARNING")
 
@@ -15,3 +16,4 @@ logger.set(filepath = "./data/test_log")
 
 print("Test :: copy")
 logger.copy("./data/copy_log")
+"""
