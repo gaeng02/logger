@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-class LoggerConfig:
+class LoggerConfig :
     LEVELS = {"DEBUG": 1, "INFO": 2, "WARNING": 3, "ERROR": 4, "EMERGENCY": 5}
 
     def __init__(self) :
@@ -60,6 +60,7 @@ class LoggerConfig:
             "level": self._level,
         }
 
+        # issue occured this part. I found it!
         with open(self.file, "w") as f:
             for key, value in config_args.items():
                 f.write(f"{key:<15} :: {value}\n")
