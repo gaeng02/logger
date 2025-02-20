@@ -143,7 +143,6 @@ class Logger :
         else : print("Exist")
         
         with open (self.file, "a") as f :
-            f.write("test log function")
             f.write(sentence)
                 
     def copy (self, copyfile) :
