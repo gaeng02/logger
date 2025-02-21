@@ -2,17 +2,16 @@ import os
 from datetime import datetime
 
 class LoggerConfig :
+    
     LEVELS = {"DEBUG": 1, "INFO": 2, "WARNING": 3, "ERROR": 4, "EMERGENCY": 5}
 
     def __init__(self) :
-        print("Testing :: LoggerConfig creation")
 
         self.file = "config"
 
         if os.path.exists(self.file) : self.__read_config()
         else : self.__initialize()
 
-        print("Completed :: LoggerConfig creation")
 
     def __initialize(self) :
         
@@ -37,13 +36,13 @@ class LoggerConfig :
 
         self.__save()
 
-    def __read_config(self):
+    def __read_config(self) :
         config_args = {}
 
-        with open(self.file, "r") as f:
+        with open(self.file, "r") as f :
             for line in f :
                 parts = line.split("::")
-                if len(parts) == 2:
+                if len(parts) == 2 :
                     key, value = parts[0].strip(), parts[1].strip()
                     config_args[key] = value
 
@@ -60,8 +59,7 @@ class LoggerConfig :
             "level": self._level,
         }
 
-        # issue occured this part. I found it!
-        with open(self.file, "w") as f:
+        with open(self.file, "w") as f :
             for key, value in config_args.items():
                 f.write(f"{key:<15} :: {value}\n")
 
@@ -106,15 +104,13 @@ class Logger :
     LEVELS = {"DEBUG" : 1, "INFO" : 2, "WARNING" : 3, "ERROR" : 4, "EMERGENCY" : 5}
     
     def __init__ (self) :
-        print("Testing :: Logger creation")
         
         self.config = LoggerConfig()
         self.file = self.config.filepath
         self.log_format = self.config.log_format
         self.time_format = self.config.time_format
         self.level = self.config.level
-        
-        print("Completed :: Logger creation")
+
 
     def set (self, filepath = False, log_format = False, time_format = False, level = False) :
 
@@ -135,12 +131,7 @@ class Logger :
         time = datetime.now().strftime(self.time_format)
 
         sentence = self.log_format.format(time = time, level = level, message = comment) + "\n"
-        print(sentence)
 
-        print("log file test")
-
-        if not os.path.exists(self.file) : print("Not exist")
-        else : print("Exist")
         
         with open (self.file, "a") as f :
             f.write(sentence)
